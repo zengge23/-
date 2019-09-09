@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.java.ac.sc.mapper.MemberCertMapper" >
+  <resultMap id="BaseResultMap" type="com.java.ac.sc.entities.MemberCert" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="memberid" property="memberid" jdbcType="INTEGER" />
+    <result column="certid" property="certid" jdbcType="INTEGER" />
+    <result column="iconpath" property="iconpath" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_member_cert
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.java.ac.sc.entities.MemberCert" >
+    insert into t_member_cert (id, memberid, certid, 
+      iconpath)
+    values (#{id,jdbcType=INTEGER}, #{memberid,jdbcType=INTEGER}, #{certid,jdbcType=INTEGER}, 
+      #{iconpath,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertList" >
+    insert into t_member_cert (memberid, certid, iconpath) values 
+    <foreach collection="list" item="memberCert" separator="," >
+    (#{memberCert.memberid,jdbcType=INTEGER}, #{memberCert.certid,jdbcType=INTEGER}, #{memberCert.iconpath,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.java.ac.sc.entities.MemberCert" >
+    update t_member_cert
+    set memberid = #{memberid,jdbcType=INTEGER},
+      certid = #{certid,jdbcType=INTEGER},
+      iconpath = #{iconpath,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, memberid, certid, iconpath
+    from t_member_cert
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, memberid, certid, iconpath
+    from t_member_cert
+  </select>
+</mapper>

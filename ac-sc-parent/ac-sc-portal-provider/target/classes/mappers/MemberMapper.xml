@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.java.ac.sc.mapper.MemberMapper">
+	<resultMap id="BaseResultMap"
+		type="com.java.ac.sc.entities.Member">
+		<id column="member_id" property="memberId" jdbcType="INTEGER" />
+		<result column="login_acc" property="loginAcc"
+			jdbcType="VARCHAR" />
+		<result column="login_pwd" property="loginPwd"
+			jdbcType="VARCHAR" />
+		<result column="nick_name" property="nickName"
+			jdbcType="VARCHAR" />
+		<result column="real_name" property="realName"
+			jdbcType="VARCHAR" />
+		<result column="card_num" property="cardNum" jdbcType="VARCHAR" />
+		<result column="phone_num" property="phoneNum"
+			jdbcType="VARCHAR" />
+		<result column="email_addr" property="emailAddr"
+			jdbcType="VARCHAR" />
+		<result column="auth_status" property="authStatus"
+			jdbcType="TINYINT" />
+		<result column="acc_type" property="accType" jdbcType="TINYINT" />
+		<result column="company" property="company" jdbcType="TINYINT" />
+		<result column="extral_field_a" property="extralFieldA"
+			jdbcType="VARCHAR" />
+		<result column="extral_field_b" property="extralFieldB"
+			jdbcType="VARCHAR" />
+		<result column="extral_field_c" property="extralFieldC"
+			jdbcType="VARCHAR" />
+		<result column="extral_field_d" property="extralFieldD"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from t_member
+		where member_id =
+		#{memberId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert"
+		parameterType="com.java.ac.sc.entities.Member">
+		insert into t_member (member_id, login_acc, login_pwd,
+		nick_name, real_name, card_num,
+		phone_num, email_addr, auth_status,
+		acc_type, company, extral_field_a,
+		extral_field_b, extral_field_c,
+		extral_field_d
+		)
+		values (#{memberId,jdbcType=INTEGER},
+		#{loginAcc,jdbcType=VARCHAR},
+		#{loginPwd,jdbcType=VARCHAR},
+		#{nickName,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR},
+		#{cardNum,jdbcType=VARCHAR},
+		#{phoneNum,jdbcType=VARCHAR},
+		#{emailAddr,jdbcType=VARCHAR},
+		#{authStatus,jdbcType=TINYINT},
+		#{accType,jdbcType=TINYINT}, #{company,jdbcType=TINYINT},
+		#{extralFieldA,jdbcType=VARCHAR},
+		#{extralFieldB,jdbcType=VARCHAR},
+		#{extralFieldC,jdbcType=VARCHAR},
+		#{extralFieldD,jdbcType=VARCHAR}
+		)
+	</insert>
+	<update id="updateByPrimaryKey"
+		parameterType="com.java.ac.sc.entities.Member">
+		update t_member
+		set login_acc =
+		#{loginAcc,jdbcType=VARCHAR},
+		login_pwd = #{loginPwd,jdbcType=VARCHAR},
+		nick_name = #{nickName,jdbcType=VARCHAR},
+		real_name =
+		#{realName,jdbcType=VARCHAR},
+		card_num = #{cardNum,jdbcType=VARCHAR},
+		phone_num = #{phoneNum,jdbcType=VARCHAR},
+		email_addr =
+		#{emailAddr,jdbcType=VARCHAR},
+		auth_status =
+		#{authStatus,jdbcType=TINYINT},
+		acc_type = #{accType,jdbcType=TINYINT},
+		company = #{company,jdbcType=TINYINT},
+		extral_field_a =
+		#{extralFieldA,jdbcType=VARCHAR},
+		extral_field_b =
+		#{extralFieldB,jdbcType=VARCHAR},
+		extral_field_c =
+		#{extralFieldC,jdbcType=VARCHAR},
+		extral_field_d =
+		#{extralFieldD,jdbcType=VARCHAR}
+		where member_id =
+		#{memberId,jdbcType=INTEGER}
+	</update>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select member_id, login_acc, login_pwd, nick_name,
+		real_name, card_num,
+		phone_num,
+		email_addr, auth_status, acc_type,
+		company, extral_field_a, extral_field_b,
+		extral_field_c,
+		extral_field_d
+		from t_member
+		where member_id = #{memberId,jdbcType=INTEGER}
+	</select>
+	<select id="selectByLoginAccAndLoginPwd"
+		resultMap="BaseResultMap">
+		select member_id, login_acc, login_pwd, nick_name,
+		real_name, card_num,
+		phone_num,
+		email_addr, auth_status, acc_type,
+		company, extral_field_a, extral_field_b,
+		extral_field_c,
+		extral_field_d
+		from t_member
+		where login_acc = #{loginAcc} and login_pwd = #{loginPwd}
+	</select>
+	<select id="selectAll" resultMap="BaseResultMap">
+		select member_id, login_acc,
+		login_pwd, nick_name, real_name, card_num,
+		phone_num,
+		email_addr,
+		auth_status, acc_type, company, extral_field_a, extral_field_b,
+		extral_field_c,
+		extral_field_d
+		from t_member
+	</select>
+	<select id="selectByLoginAcc" resultType="int">
+		select count(*)
+		from t_member where login_acc = #{loginAcc}
+	</select>
+	<update id="updateMemberAuthStatus">
+		update t_member set
+		auth_status = #{authStatus} where
+		member_id = #{memberId}
+	</update>
+	<update id="updateAccttypeByMemberId">
+		update t_member set
+		acc_type = #{accttype} where
+		member_id = #{memberId}
+	</update>
+	<update id="updateMemberBasicinfo">
+		update t_member set
+		real_name = #{realName,jdbcType=VARCHAR},
+		card_num =
+		#{cardNum,jdbcType=VARCHAR},
+		phone_num = #{phoneNum,jdbcType=VARCHAR}
+		where member_id = #{memberId,jdbcType=INTEGER}
+	</update>
+	<update id="updateEmailAddrByMemberId">
+		update t_member set
+		email_addr = #{emailAddr,jdbcType=VARCHAR}
+		where member_id = #{memberId,jdbcType=INTEGER}
+	</update>
+
+</mapper>
